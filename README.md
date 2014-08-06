@@ -6,7 +6,7 @@ An online student attendance management system for recording the student attenda
 Original Authors
 ----------------
 
-* Chirayu Chiripal aka [D-Storm][1]
+* Chirayu Chiripal aka [D-storm][1]
 * Kunal Ahuja
 
 [1]: https://github.com/D-storm
