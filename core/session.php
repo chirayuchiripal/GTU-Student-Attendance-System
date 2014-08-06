@@ -1,6 +1,10 @@
-<?php 
-define('APP_NAME','salam');
-function my_session_start($timeout = 600) 
+<?php
+define('APP_NAME',getAppName());
+function getAppName() {
+    $dirs = explode('/',$_SERVER['REQUEST_URI']);
+    return $dirs[1];
+}
+function my_session_start($timeout = 600)
 {
     ini_set('session.gc_maxlifetime', $timeout);
     ini_set('session.cookie_path', '/'.APP_NAME);
