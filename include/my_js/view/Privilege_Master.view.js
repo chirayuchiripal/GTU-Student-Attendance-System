@@ -1,0 +1,8 @@
+$(function(){
+	var cols={"privilege_name":"Privilege Name","faculty_master_access":"Faculty Master","inst_master_access":"Institute Master","prog_master_access":"Programme Master","dept_master_access":"Department Master","academic_calendar_access":"Academic Calendar","attendance_master_access":"Attendance Master","student_master_access":"Student Master","sub_master_access":"Subject Master","user_master_access":"User Master","privilege_master_access":"Privilege Master","offers_master_access":"IPD Mapping","reports":"Report Generation"};
+	set_header_row(cols,null,true);
+	var data={"CLM5":"privilege_id,privilege_name,faculty_master_access,inst_master_access,prog_master_access,dept_master_access,academic_calendar_access,attendance_master_access,student_master_access,sub_master_access,user_master_access,privilege_master_access,offers_master_access,reports"};
+	var mod_part={"000":"None","100":"Search","010":"Add","001":"Update","101":"Search/Update","110":"Search/Add","011":"Add/Update","111":"Search/Add/Update"};
+	var modifiers={"faculty_master_access":mod_part,"inst_master_access":mod_part,"prog_master_access":mod_part,"dept_master_access":mod_part,"academic_calendar_access":mod_part,"attendance_master_access":mod_part,"student_master_access":mod_part,"sub_master_access":mod_part,"user_master_access":mod_part,"privilege_master_access":mod_part,"offers_master_access":mod_part,"reports":{"0":"No","1":"Yes"}};
+	fillViewTable("Privilege_Master",data,cols,["privilege_id"],modifiers);
+});

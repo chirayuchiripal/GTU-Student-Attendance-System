@@ -1,0 +1,22 @@
+.no-print,tr.tablesorter-filter-row,tfoot
+{	display:none;
+}
+#content
+{	border-style:solid;
+	border-width:0px;
+}
+body
+{	padding:0px;
+}
+table.tablesorter
+{	border-collapse:collapse;
+	font-family:"Times New Roman", Times, serif;
+	font-size:12pt;
+}
+table.tablesorter th
+{	text-align:center;
+}
+h1.form_heading
+{	font-size:16pt;
+	font-weight:bold;
+}

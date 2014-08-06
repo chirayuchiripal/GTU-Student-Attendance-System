@@ -1,0 +1,54 @@
+.attd_status
+{	font-weight:bold;
+	font-size:1.1em;
+}
+.stud_present:before
+{	content:"P";
+	color:#3F4CAB;
+}
+.stud_absent:before
+{	content:"A";
+	color:#f00;
+}
+.na
+{	color:#000;
+}
+.absent
+{	color:#f00;
+}
+.present
+{	color:#3F4CAB;
+}
+.absent-all,.present-all
+{	cursor:pointer;
+}
+.absent-all:hover,.present-all:hover
+{	border-bottom:1px #000 dashed;
+}
+.present-all:before
+{	content:"All Present";
+	color:#3F4CAB;
+}
+.absent-all:before
+{	content:"All Absent";
+	color:#f00;
+}
+.panel-heading .accordion-toggle:before
+{	font-family: 'Glyphicons Halflings';  
+	content: "\e114";    
+	float:left;
+	color: grey;       
+	margin-right:10px;
+}
+.panel-heading .accordion-toggle.collapsed:before
+{	content: "\e080";  
+}
+table#lec_details th,table#lec_details td
+{	vertical-align:middle;
+}
+table#lec_details th label
+{	margin-bottom:0px;
+}
+#lec_date
+{	width:150px;
+}

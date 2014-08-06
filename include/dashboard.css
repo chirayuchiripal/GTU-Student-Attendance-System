@@ -1,0 +1,61 @@
+#content
+{	min-height:35em;
+	padding:5px;
+	border-width:2px;
+	border-style:dotted solid;
+}
+.cursor-not-allowed
+{   cursor: not-allowed;
+}
+.cursor-pointer
+{   cursor: pointer;
+}
+.no-border
+{	border:0px;
+}
+.zero-top-margin
+{	margin-top:0px;
+}
+.dash_btn{
+ border:1px solid #ffad41; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:12px;font-family:arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.1);font-weight:bold; color: #FFFFFF;
+ background-color: #ffc579; background-image: -webkit-gradient(linear, left top, left bottom, from(#ffc579), to(#fb9d23));
+ background-image: -webkit-linear-gradient(top, #ffc579, #fb9d23);
+ background-image: -moz-linear-gradient(top, #ffc579, #fb9d23);
+ background-image: -ms-linear-gradient(top, #ffc579, #fb9d23);
+ background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
+ background-image: linear-gradient(to bottom, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
+ margin-top:50px;
+}
+.dash_btn:hover{
+ border:1px solid #ff9913;
+ background-color: #ffaf46; background-image: -webkit-gradient(linear, left top, left bottom, from(#ffaf46), to(#e78404));
+ background-image: -webkit-linear-gradient(top, #ffaf46, #e78404);
+ background-image: -moz-linear-gradient(top, #ffaf46, #e78404);
+ background-image: -ms-linear-gradient(top, #ffaf46, #e78404);
+ background-image: -o-linear-gradient(top, #ffaf46, #e78404);
+ background-image: linear-gradient(to bottom, #ffaf46, #e78404);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffaf46, endColorstr=#e78404);
+}
+.dash_btn a:hover
+{	text-decoration:none;
+	color:#fff;
+}
+.dash_btn_label
+{	font-size:3em;
+	color:#fff;
+}
+.dash_btn .single
+{	line-height:80px;
+}
+.dash_btn .double
+{	line-height:40px;
+}
+.dash_btn span
+{	font-size:5em;
+	color:#000;
+	line-height:80px;
+	padding-right:20px;
+	margin-right:25px;
+	padding-left:10px;
+	border-right:2px dashed #000;
+	float:left;
+}

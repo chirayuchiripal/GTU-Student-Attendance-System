@@ -1,0 +1,6 @@
+* Javascripts (.js) files to be included w/o extension.
+* Sub-directories can be formed and used accordingly.
+* Path where js files are to be stored:
+	myjs_includes : include/my_js/
+	js_includes : include/js/
+	js_pre_includes : include/js/

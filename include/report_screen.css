@@ -1,0 +1,13 @@
+table.report_table th,table.report_table td
+{	text-align:center;
+}
+.glyphicon-remove
+{	color:red;
+	cursor:pointer;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #FFFF99;
+}
+.prn-btn
+{	margin-bottom:10px;
+}

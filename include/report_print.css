@@ -1,0 +1,13 @@
+table.report_table
+{	width:95%;
+	border-collapse:collapse;
+	font-family:"Times New Roman", Times, serif;
+	font-size:12pt;
+}
+table.report_table th,table.report_table td
+{	border:2px #000 solid;
+	text-align:center;
+}
+.no-print{
+	display:none;
+}

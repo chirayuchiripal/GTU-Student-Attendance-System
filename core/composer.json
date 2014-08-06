@@ -1,0 +1,9 @@
+{
+    "require": {
+        "zendframework/zend-db": "2.2.5",
+		"zendframework/zend-crypt": "2.2.5",
+        "zendframework/zend-stdlib": "2.2.5",
+        "zendframework/zend-http": "2.2.5",
+		"slam/tcpdf": "6.0.063"
+    }
+}
