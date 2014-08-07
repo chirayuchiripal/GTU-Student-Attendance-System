@@ -1,13 +1,9 @@
 <?php
-define('APP_NAME',getAppName());
-function getAppName() {
-    $dirs = explode('/',$_SERVER['REQUEST_URI']);
-    return $dirs[1];
-}
+require_once __DIR__."/config/config.php";
 function my_session_start($timeout = 600)
 {
     ini_set('session.gc_maxlifetime', $timeout);
-    ini_set('session.cookie_path', '/'.APP_NAME);
+    ini_set('session.cookie_path', APP_NAME);
 	date_default_timezone_set('Asia/Kolkata');
     session_start();
     if (isset($_SESSION['timeout_idle']) && $_SESSION['timeout_idle'] < time()) {
