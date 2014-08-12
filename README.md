@@ -9,4 +9,11 @@ Original Authors
 * Chirayu Chiripal aka [D-storm][1]
 * Kunal Ahuja
 
+Demo Server 1 (OpenShift PaaS Server)
+-------------
+
+* http://salam-dstorm.rhcloud.com
+  * Username: admin
+  * Password: @dmin.12
+
 [1]: https://github.com/D-storm
