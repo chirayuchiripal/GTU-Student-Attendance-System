@@ -1,4 +1,4 @@
-<?php	
+<?php
 	require_once "./core/session.php";
 	my_session_start();
 	if(!isset($_SESSION['login']))
@@ -8,7 +8,7 @@
 		exit();
 	}
 ?>
-<?php	
+<?php
 	$dir="./";
 	$title="Login";
 	$css_includes[]="login";
