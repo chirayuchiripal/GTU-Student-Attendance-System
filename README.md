@@ -16,7 +16,7 @@ Demo Server 1
   * Username: admin
   * Password: @dmin.12
 
-Demo Server 2 (OpenShift PaaS Server)
+Demo Server 2 (OpenShift PaaS Server) [Update feature does not work]
 -------------
 
 * http://salam-dstorm.rhcloud.com
