@@ -13,7 +13,7 @@ Installation Intstructions
 6. Go to core/config/ directory and follow instructions written in config.sample.php.
 7. Go to core/config/db/ directory and follow instructions written in credentials.db.sample.php.
 8. Delete or move the database_installation_import_files/ directory out of the web accessible folder.
-9. Start using it!! :)
+9. Login using **username: admin** and **password: @dmin.12**
 
 Original Authors
 ----------------
