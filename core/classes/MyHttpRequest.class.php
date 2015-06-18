@@ -1,5 +1,6 @@
 <?php
 use Zend\Http\ClientStatic;
+use Zend\Http\Response;
 abstract class MyHttpRequest extends HTTP_Status
 {
 	private static function initHeaders(array $additionalHeaders=array())
@@ -13,11 +14,17 @@ abstract class MyHttpRequest extends HTTP_Status
 	{
 		$view_url="http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}".APP_NAME."core/modules/view/get/";
 		$headers=self::initHeaders($additionalHeaders);
-		$response=json_decode(ClientStatic::post($view_url.$queryString,$postParam,$headers)->getContent(),true);
+        $httpResponse = ClientStatic::post($view_url.$queryString,$postParam,$headers);
+        if (empty($httpResponse) || is_bool($httpResponse)) {
+            throw new Exception("Unexpected or no response received from server: " . $httpResponse);
+        } else if (!$httpResponse->isOk() || !$httpResponse->isSuccess()) {
+            throw new Exception("Error: " . $httpResponse->renderStatusLine());
+        }
+		$response=json_decode($httpResponse->getContent(),true);
 		if(isset($response[0]['status']) && $response[0]['status']==self::NOT_FOUND)
 			return false;
-		else if(isset($response[0]['status']))
-			throw new Exception($response[0]['status']);
+		else if(!is_array($response) || isset($response[0]['status']))
+			throw new Exception('Response format error.');
 		return true;
 	}
 	public static function postTableData(&$response,$queryString="",array $postParam=array(),array $additionalHeaders=array())
