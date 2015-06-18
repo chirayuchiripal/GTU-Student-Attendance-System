@@ -1,6 +1,5 @@
 <?php
 use Zend\Http\ClientStatic;
-use Zend\Http\Response;
 abstract class MyHttpRequest extends HTTP_Status
 {
 	private static function initHeaders(array $additionalHeaders=array())
