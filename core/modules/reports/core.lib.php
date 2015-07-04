@@ -61,18 +61,25 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
 		{	$res = $dbh->fetchAssoc();
 			//var_dump($res);
 			$attd=array();
-			foreach($res as $mst)
-			{	if(isset($attd[$mst['sub_id']]))
-				{	$attd[$mst['sub_id']]['masters'][]=$mst['attd_mst_id'];
-				}
-				else
-				{	$attd[$mst['sub_id']]=array(
-						'sub_name' => $mst['sub_name'],
-						'sub_code' => $mst['sub_code'],
-						'masters'  => array($mst['attd_mst_id'])
-					);
-				}
-			}
+            if ($res) {
+                foreach($res as $mst)
+                {	if(isset($attd[$mst['sub_id']]))
+                    {	$attd[$mst['sub_id']]['masters'][]=$mst['attd_mst_id'];
+                    }
+                    else
+                    {	$attd[$mst['sub_id']]=array(
+                            'sub_name' => $mst['sub_name'],
+                            'sub_code' => $mst['sub_code'],
+                            'masters'  => array($mst['attd_mst_id'])
+                        );
+                    }
+                }
+            } else {
+                $response = array(
+                   'code' => HTTP_Status::INTERNAL_SERVER_ERROR
+                   );
+                return false;
+            }
 			/*
 			select Attendance.stud_id,CONCAT(stud_name,' ',stud_father_name,' ',stud_surname) as stud_name,stud_rollno,stud_enrolmentno,sum(presence) as presence,count(presence) as total,ROUND((sum(presence) / count(presence))*100,2) as percentage 
 			from Attendance 
@@ -103,21 +110,28 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
 				$dbh->prepare();
 				if($dbh->execute())
 				{	$tmp_res=$dbh->fetchAssoc();
-					foreach($tmp_res as $s)
-					{	if(isset($attendance[$s['stud_id']]))
-						{	$attendance[$s['stud_id']]['attendance'][$sub_attd['sub_code']] = number_format(floatval($s['percentage']), 2, '.', '');
-						}
-						else
-						{	$attendance[$s['stud_id']]=array(
-								"stud_name" => $s['stud_name'],
-								"stud_rollno" => $s['stud_rollno'],
-								"stud_enrolmentno" => $s['stud_enrolmentno'],
-								"attendance" => array(
-									$sub_attd['sub_code'] => number_format(floatval($s['percentage']), 2, '.', '')
-								)
-							);
-						}
-					}
+                    if ($tmp_res) {
+                        foreach($tmp_res as $s)
+                        {	if(isset($attendance[$s['stud_id']]))
+                            {	$attendance[$s['stud_id']]['attendance'][$sub_attd['sub_code']] = number_format(floatval($s['percentage']), 2, '.', '');
+                            }
+                            else
+                            {	$attendance[$s['stud_id']]=array(
+                                    "stud_name" => $s['stud_name'],
+                                    "stud_rollno" => $s['stud_rollno'],
+                                    "stud_enrolmentno" => $s['stud_enrolmentno'],
+                                    "attendance" => array(
+                                        $sub_attd['sub_code'] => number_format(floatval($s['percentage']), 2, '.', '')
+                                    )
+                                );
+                            }
+                        }
+                    } else {
+                        $response = array(
+                           'code' => HTTP_Status::INTERNAL_SERVER_ERROR
+                           );
+                        return false;
+                    }
 				}
 			}
 			if(isset($ltgt,$percentage,$sub_filter))
@@ -210,13 +224,14 @@ function generateHTMLReport(&$response,$title,$o_id,$sem,$ac_id,$div,array $sub_
 			$batch_label=$div_label="";
 			$cols_arr=array();
 			$now = (new DateTime)->format("d/m/Y");
+            $lec_label = "";
 			if(intval($lec_type)==2)
 				$lec_label="Lecture & Lab ";
 			else if(intval($lec_type==1))
 				$lec_label="Lab ";
 			else if(intval($lec_type==0))
 				$lec_label="Lecture ";
-			if(!empty($division))
+			if(!empty($div))
 				$div_label=" | Division: {$div}";
 			if($lec_type==1)
 			{	$batch_label = " | Batch No.: ".(empty($batchno)?"All":$batchno);
@@ -235,7 +250,8 @@ function generateHTMLReport(&$response,$title,$o_id,$sem,$ac_id,$div,array $sub_
 		</tr>
 EOF;
 		if(isset($ltgt,$percentage,$sub_filter))
-		{	if(strcmp($sub_filter,"any")==0)
+		{	$filter_label = "";
+            if(strcmp($sub_filter,"any")==0)
 				$filter_label="in any of the subject(s)";
 			else if(strcmp($sub_filter,"avg")==0)
 				$filter_label="average of all subject(s)";
@@ -333,13 +349,14 @@ function generateCSVReport(&$response,$title,$o_id,$sem,$ac_id,$div,array $sub_i
 			$cols = count($first['attendance']) + 1;
 			$batch_label=$div_label="";
 			$cols_arr=array();
+            $lec_label = "";
 			if(intval($lec_type)==2)
 				$lec_label=" | Lecture/Lab";
 			else if(intval($lec_type==1))
 				$lec_label=" | Lab";
 			else if(intval($lec_type==0))
 				$lec_label=" | Lecture";
-			if(!empty($division))
+			if(!empty($div))
 				$div_label=" | Division: {$div}";
 			if($lec_type==1)
 				$batch_label = " | Batch No.: {$batchno}";
@@ -350,7 +367,8 @@ function generateCSVReport(&$response,$title,$o_id,$sem,$ac_id,$div,array $sub_i
 
 EOF;
 		if(isset($ltgt,$percentage,$sub_filter))
-		{	if(strcmp($sub_filter,"any")==0)
+		{	$filter_label = "";
+            if(strcmp($sub_filter,"any")==0)
 				$filter_label="in any of the subject(s)";
 			else if(strcmp($sub_filter,"avg")==0)
 				$filter_label="average of all subject(s)";
