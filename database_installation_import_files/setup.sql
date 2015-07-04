@@ -12,7 +12,7 @@ SET time_zone = "+00:00";
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `student_presence_from_master`$$
-CREATE DEFINER=`chirayu`@`%` PROCEDURE `student_presence_from_master`(IN mst_id BIGINT UNSIGNED)
+CREATE PROCEDURE `student_presence_from_master`(IN mst_id BIGINT UNSIGNED)
 BEGIN
 select division,batchno from Attendance_Master where attd_mst_id = mst_id;
 select Attendance.stud_id,CONCAT(stud_name,' ',stud_father_name,' ',stud_surname) as stud_name,stud_rollno,stud_enrolmentno,sum(presence) as presence,count(presence) as total,ROUND((sum(presence) / count(presence))*100,2) as percentage from Attendance 
