@@ -27,9 +27,10 @@ $(function(){
 		var vars = [], hash;
 		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 		if(typeof QS != 'undefined')
-			var hashes = QS.substr(1).split('&');
+			hashes = QS.substr(1).split('&');
 		//alert(hashes);
-		for(var i = 0; i < hashes.length; i++)
+        var i;
+		for(i = 0; i < hashes.length; i++)
 		{
 		  hash = hashes[i].split('=');
 		  vars.push(hash[0]);
@@ -37,7 +38,8 @@ $(function(){
 		}
 		vars[name]=value;
 		//alert(vars[name]);
-		var newQS = "?",i=0;
+		var newQS = "?";
+        i = 0;
 		$.each(vars,function(k,v){
 			if(i)
 				newQS += "&";
