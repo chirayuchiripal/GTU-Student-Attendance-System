@@ -41,10 +41,11 @@ function default_add_submit(name,data)
 			for(var key in data)
 			{	if(data.hasOwnProperty(key))
 				{	var id="#"+key;
+                    var container = {};
 					if(key=="o_id")
-						var container=$(".o_id_select");
+						container=$(".o_id_select");
 					else	
-						var container=$(id).closest(".form-group");
+						container=$(id).closest(".form-group");
 					if(!container.length)
 						continue;
 					container.removeClass("has-error form-element");
