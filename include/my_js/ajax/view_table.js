@@ -17,10 +17,10 @@ function set_header_row(cols,classes,footer,container)
 		if(footer)
 			$("<th>",{html:val}).appendTo(c_ele+" tfoot tr:first-child");
 	});
-	$(c_ele + " .ts-pager").prop('colspan',count(cols));
+	$(c_ele + " .ts-pager").prop('colspan',countProperties(cols));
 	initViewTable(c_ele + " table.tablesorter");
 }
-function count(obj) {
+function countProperties(obj) {
    var count=0;
    for(var prop in obj) {
       if (obj.hasOwnProperty(prop)) {
@@ -41,7 +41,7 @@ function updateViewTable(container)
 function fillViewTable(master,data,cols,data_attr,modifiers,callback,method)
 {	$("#view_table tbody").empty();
 	if(typeof method == 'undefined')
-		var method = "POST";
+		method = "POST";
 	$.ajax({
 		type: method,
 		url: getUrl+master,
@@ -52,20 +52,20 @@ function fillViewTable(master,data,cols,data_attr,modifiers,callback,method)
 			{	alert(data[0].error);
 			}
 			else
-			{	
+			{	var value="";
 				$.each(data,function(key,val){
 					var p=$("<tr>").appendTo("#view_table tbody");
 					$.each(cols,function(k,v){
 						if(typeof v=='object')
 						{	
-							var value="";
+							value = "";
 							$.each(v,function(i,j){
 								if(val[j]!=null)
 									value+=val[j]+" ";
 							});
 						}
 						else
-							var value=val[k];
+							value=val[k];
 						if(typeof modifiers=='object' && typeof modifiers[k]!='undefined')
 						{	
 							value=modifiers[k][val[k]];
