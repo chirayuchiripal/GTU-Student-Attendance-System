@@ -21,6 +21,7 @@ abstract class Master implements IForm,JsonSerializable
 	public function get_assoc_array($inherited=false)
 	{	if($inherited)
 			return get_object_vars($this);
+        $arr = array();
 		$refclass = new ReflectionClass($this);
 		foreach ($refclass->getProperties() as $property)
 		{	$name = $property->name;
