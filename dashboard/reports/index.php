@@ -93,8 +93,8 @@ var dir="../../";
 		</div>
 		<div class="col-lg-2 col-md-2 col-sm-3">
 			<select class="form-control" id="ltgt" name="ltgt">
-				<option value="lt">&lt;=</option>
-				<option value="gt">&gt;=</option>
+				<option value="lte">&lt;=</option>
+				<option value="gte">&gt;=</option>
 			</select>
 		</div>
 		<div class="col-lg-2 col-md-2 col-sm-2">

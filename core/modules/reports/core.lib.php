@@ -11,7 +11,7 @@ use Zend\Db\Sql\Expression;
     @param  $sub_id    		ARRAY       Array of subjects
     @param  $lec_type  		INT         Lab/Lecture/Both
     @param  $batchno  		INT         Batchno if lab
-    @param  $ltgt   		STRING      Less Than/ Greater Than (Filters)
+    @param  $ltgt   		STRING      Less Than or equal/ Greater Than or equal(Filters)
     @param  $percentage		INT         Threshold Attendance (Filters)
     @param  $sub_filter		STRING      Avg of Subjects / For Any Subject (Filters)
 */
@@ -125,8 +125,8 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
 				{	$flag=false;
 					if(strcmp($sub_filter,"any")==0)
 					{	foreach($stud['attendance'] as $attd)
-						{	if( (strcmp($ltgt,"<")==0 && $attd < $percentage)||
-								(strcmp($ltgt,">")==0 && $attd > $percentage))
+						{	if( (strcmp($ltgt,"<=")==0 && $attd <= $percentage)||
+								(strcmp($ltgt,">=")==0 && $attd >= $percentage))
 							{	$flag = true;
 								break;
 							}
@@ -137,8 +137,8 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
 						$cnt = count($stud['attendance']);
 						$avg = $sum/$cnt;
 						//echo $avg." ";
-						if( (strcmp($ltgt,"<")==0 && $avg < $percentage)||
-							(strcmp($ltgt,">")==0 && $avg > $percentage))
+						if( (strcmp($ltgt,"<=")==0 && $avg <= $percentage)||
+							(strcmp($ltgt,">=")==0 && $avg >= $percentage))
 						{	$flag = true;
 						}
 					}

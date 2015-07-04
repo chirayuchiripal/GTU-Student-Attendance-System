@@ -29,10 +29,10 @@ if('POST' == $_SERVER['REQUEST_METHOD'])
 	$_POST['batchno'] = empty($_POST['batchno']) ? null : $_POST['batchno'];
 	$_POST['division'] = empty($_POST['division']) ? "" : $_POST['division'];
 	$_POST['percentage'] = empty($_POST['percentage']) ? null : floatval($_POST['percentage']);
-	if(strcmp($_POST['ltgt'],"lt")==0)
-		$_POST['ltgt'] = "<";
-	else if(strcmp($_POST['ltgt'],"gt")==0)
-		$_POST['ltgt'] = ">";
+	if(strcmp($_POST['ltgt'],"lte")==0)
+		$_POST['ltgt'] = "<=";
+	else if(strcmp($_POST['ltgt'],"gte")==0)
+		$_POST['ltgt'] = ">=";
 	else
 		$_POST['ltgt'] = null;
 	$_POST['sub_id'] = !isset($_POST['sub_id']) || !is_array($_POST['sub_id']) ? array() : $_POST['sub_id'];
