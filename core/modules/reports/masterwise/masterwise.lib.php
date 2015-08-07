@@ -252,7 +252,7 @@ function getStudentAttendanceByLec(&$response,$lec_id)
 		$dbh->select->where->equalTo('lec_id',$lec_id);
 		$dbh->join('Student_Master','Student_Master.stud_id = Attendance.stud_id',
 					array(	'stud_rollno','stud_enrolmentno',
-							'stud_name' => new Expression("CONCAT(stud_name,' ',stud_father_name,' ',stud_surname)")
+							'stud_name' => new Expression("CONCAT(stud_name,' ',IFNULL(stud_father_name,''),' ',IFNULL(stud_surname,''))")
 					));
 		$dbh->select->order('stud_rollno ASC');
 		$dbh->prepare();
