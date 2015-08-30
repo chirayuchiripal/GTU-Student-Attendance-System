@@ -4,6 +4,8 @@ class Lectures extends Attendance_Master
 	protected $lec_id=NULL;
 	protected $lec_date=NULL;
 	protected $attd_mst_id=NULL;
+    protected $active = 1;
+    protected $last_updated_by = NULL;
 	// Class Constants
 	
 	const HEADING='Lecture';
@@ -34,6 +36,12 @@ class Lectures extends Attendance_Master
 		{	$this->attd_mst_id=$arr['attd_mst_id'];
 			$suc['attd_mst_id']=true;
 		}
+        if(isset($_SESSION['user_name'])) {
+            $this->last_updated_by = $_SESSION['user_name'];
+        }
+        if(isset($arr['active']) && intval($arr['active']) === 0) {
+            $this->active = 0;
+        }
 		return $suc;
 	}
 }

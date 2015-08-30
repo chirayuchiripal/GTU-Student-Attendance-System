@@ -36,6 +36,7 @@
             $myjs_includes[]="ajax/viewAttd_studwise";
             $myjs_includes[]="ajax/viewAttd_lecwise";
             $myjs_includes[]="ajax/updateAttd";
+            $myjs_includes[]="ajax/deleteAttd";
         }
 	}
 ?>

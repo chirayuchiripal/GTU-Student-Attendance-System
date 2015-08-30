@@ -52,3 +52,14 @@ table#lec_details th label
 #lec_date
 {	width:150px;
 }
+.confirm-modal {
+    padding-top: 20%;
+}
+.confirm-modal .modal-body {
+    padding-bottom: 0px;
+}
+.confirm-modal .modal-footer {
+    margin-top: 0px;
+    padding-top: 0px;
+    border: none;
+}

@@ -160,4 +160,29 @@ function updateAttd(&$response,array $objs)
         return false;
 	}
 }
+function deleteLecture(&$response, $lec_id)
+{
+    try
+    {
+        $arr = array(
+            'active' => 0
+        );
+        $obj = new Lectures($arr);
+        $dbh = new MyDbCon;
+        $dbh->updateThese($obj, array("lec_id" => $lec_id), array("active", "last_updated_by"));
+        $dbh->prepare();
+        $dbh->execute();
+        return true;
+    } catch(\Exception $e)
+    {
+        $message = $e->getPrevious() ? $e->getPrevious()->getMessage() : $e->getMessage();
+        $code=	$e->getPrevious() ? $e->getPrevious()->getCode() : $e->getCode();
+        $err="Error Code: ".$code." <br/>Detailed Info: ".$message;
+        $response = array(
+                       'code' => HTTP_Status::FORBIDDEN,
+                       'message' => $err
+                       );
+        return false;
+    }
+}
 ?>

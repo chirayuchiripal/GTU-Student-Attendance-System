@@ -34,4 +34,38 @@ $(function(){
 		else
 			alert("No changes made by you!");
 	});
+
+    // Handler for deleting a lecture. Shows confirmation dialog for deletion
+    $("body").on("click", "#delete_btn", function() {
+        var $confirmBox = alertModal.clone();
+        var id = "lecture_delete_confirmation";
+        $confirmBox.attr('id', id);
+        $("body").append($confirmBox);
+        $('#lecture_delete_confirmation .modal-title').text('Confirm deletion?');
+        $('#lecture_delete_confirmation .modal-body').text('Are you sure you want to delete the lecture attendance?');
+        $('#lecture_delete_confirmation').modal('show');
+        $('#lecture_delete_confirmation').on('hidden.bs.modal', function(){
+			$('#lecture_delete_confirmation').remove();
+		});
+    });
+
+    // Stackable modal backdrop fix
+    $(document).on('shown.bs.modal', '.modal.in', function(event) {
+        setModalsAndBackdropsOrder();
+    }).on('hidden.bs.modal', '.modal', function(event) {
+        setModalsAndBackdropsOrder();
+    });
+
+    // Fixes z-index and backdrop of the open stacked modals
+    function setModalsAndBackdropsOrder() {
+        var modalZIndex = 1040;
+        $('.modal.in').each(function(index) {
+            $('body').addClass('modal-open');
+            var $modal = $(this);
+            modalZIndex++;
+            $modal.css('zIndex', modalZIndex);
+            $modal.next('.modal-backdrop.in').addClass('hidden').css('zIndex', modalZIndex - 1);
+        });
+        $('.modal.in:visible:last').focus().next('.modal-backdrop.in').removeClass('hidden');
+    }
 });

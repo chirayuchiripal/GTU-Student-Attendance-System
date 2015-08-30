@@ -187,6 +187,7 @@ function getLectureWiseAttendanceByMst(&$response,$mst_id)
 		$dbh->select("Lectures");
 		$dbh->select->columns(array('lec_id','lec_date'));
 		$dbh->select->where->equalTo('attd_mst_id',$mst_id);
+        $dbh->select->where->equalTo('Lectures.active', 1);
 		$dbh->join('Attendance','Lectures.lec_id = Attendance.lec_id',
 					array(	'presence' => new Expression("sum(presence)"),
 							'total' => new Expression("count(presence)"),
@@ -198,7 +199,7 @@ function getLectureWiseAttendanceByMst(&$response,$mst_id)
 		/*
 		select Lectures.lec_id,lec_date,sum(presence) as presence,count(presence) as total,ROUND(sum(presence)/count(presence)*100,2) as percentage from Lectures left join Attendance
 		on Attendance.lec_id=Lectures.lec_id
-		where attd_mst_id = 9
+		where attd_mst_id = 9 and Lectures.active = 1
 		group by Lectures.lec_id
 		order by lec_date ASC
 		*/
@@ -291,7 +292,7 @@ function getLectureWiseAttendanceOfStudByMst(&$response,$mst_id,$stud_id)
 		select Lectures.lec_id,lec_date,presence from Lectures 
 		left join Attendance 
 		on Attendance.lec_id=Lectures.lec_id and stud_id=65 
-		where attd_mst_id=9
+		where attd_mst_id=9 and Lectures.active = 1
 		group by Lectures.lec_id 
 		order by lec_date ASC
 	*/
@@ -309,6 +310,7 @@ function getLectureWiseAttendanceOfStudByMst(&$response,$mst_id,$stud_id)
 		$dbh->select->columns(array('lec_id','lec_date'));
 		$dbh->join('Attendance',new Expression("Lectures.lec_id = Attendance.lec_id and stud_id = {$stud_id}"),array('presence'),'left');
 		$dbh->select->where->equalTo('attd_mst_id',$mst_id);
+        $dbh->select->where->equalTo('Lectures.active', 1);
 		$dbh->select->group('Lectures.lec_id');
 		$dbh->select->order('lec_date ASC');
 		$dbh->prepare();

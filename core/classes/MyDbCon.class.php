@@ -89,6 +89,22 @@ class MyDbCon implements IMyDbCon
 		$this->update->where($id_cols);
 		$this->last_action="update";
 	}
+
+    public function updateThese(Master $obj, array $id_cols, array $update_cols)
+    {
+        $this->table = get_class($obj);
+        $this->update = $this->sql->update();
+        $this->update->table($this->table);
+        $data = $obj->get_assoc_array();
+        $values = array();
+        foreach($update_cols as $key) {
+            $values[$key] = $data[$key];
+        }
+        $this->update->set($values);
+        $this->update->where($id_cols);
+        $this->last_action="update";
+    }
+
     // Preferably For MySQL only
     public function multiInsert(array $objs)
     {   $this->table=get_class(current($objs));

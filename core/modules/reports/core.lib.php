@@ -85,7 +85,7 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
 			from Attendance 
 			join Student_Master
 			on Student_Master.stud_id = Attendance.stud_id
-			where lec_id in(select lec_id from Lectures where attd_mst_id=mst_id) group by Attendance.stud_id order by stud_rollno ASC;
+			where lec_id in(select lec_id from Lectures where attd_mst_id=mst_id and active = 1) group by Attendance.stud_id order by stud_rollno ASC;
 			*/
 			//$attd_by_mst=array();
 			$attendance=array();
@@ -104,7 +104,7 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
 				$dbh->join("Student_Master","Student_Master.stud_id = Attendance.stud_id",array("stud_name" => new Expression("CONCAT(stud_name,' ',stud_father_name,' ',stud_surname)"),
 					"stud_rollno",
 					"stud_enrolmentno"));
-				$dbh->select->where("lec_id in(select lec_id from Lectures where attd_mst_id IN ({$mst}))");
+				$dbh->select->where("lec_id in(select lec_id from Lectures where attd_mst_id IN ({$mst}) and active = 1)");
 				$dbh->select->group("Attendance.stud_id");
 				$dbh->select->order("stud_enrolmentno ASC");
 				$dbh->prepare();

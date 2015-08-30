@@ -46,7 +46,14 @@ if('POST' == $_SERVER['REQUEST_METHOD'])
 		if(authStud($response,$queries['mst'],$ids))
 			$flag = true;
 	}
-	if((!empty($_POST['stud_id']) && $flag && updateByStudId($response,$_POST['stud_id'],$_POST['c'])) ||
+    if (!empty($_POST['del']) && !empty($_POST['lec_id']) && authLec($response,$queries['mst'],array($_POST['lec_id'])) && deleteLecture($response, $_POST['lec_id']))
+    {
+        $response = json_encode(array('done'=>true,'final'=>'Lecture deleted successfully!'));
+        header('Content-Length: '.strlen($response));
+        header('Content-Type: application/json');
+        echo $response;
+    }
+	else if((!empty($_POST['stud_id']) && $flag && updateByStudId($response,$_POST['stud_id'],$_POST['c'])) ||
 	(!empty($_POST['lec_id']) && $flag && updateByLecId($response,$_POST['lec_id'],$_POST['c'])))
 	{	$response = json_encode(array('done'=>true,'final'=>'Attendance Updated Successfully!'));
 		header('Content-Length: '.strlen($response));
