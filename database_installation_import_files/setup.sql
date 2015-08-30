@@ -18,7 +18,7 @@ select division,batchno from Attendance_Master where attd_mst_id = mst_id;
 select Attendance.stud_id,CONCAT(stud_name,' ',stud_father_name,' ',stud_surname) as stud_name,stud_rollno,stud_enrolmentno,sum(presence) as presence,count(presence) as total,ROUND((sum(presence) / count(presence))*100,2) as percentage from Attendance 
 join Student_Master
 on Student_Master.stud_id = Attendance.stud_id
-where lec_id in(select lec_id from Lectures where attd_mst_id=mst_id) group by Attendance.stud_id order by stud_rollno ASC;
+where lec_id in(select lec_id from Lectures where attd_mst_id=mst_id and active = 1) group by Attendance.stud_id order by stud_rollno ASC;
 END$$
 
 DELIMITER ;
@@ -137,7 +137,10 @@ DROP TABLE IF EXISTS `Lectures`;
 CREATE TABLE IF NOT EXISTS `Lectures` (
 `lec_id` bigint(20) unsigned NOT NULL COMMENT 'Primary Key',
   `lec_date` date NOT NULL COMMENT 'Attendance Date',
-  `attd_mst_id` bigint(20) unsigned NOT NULL COMMENT 'References Attendance_Master(attd_mst_id)'
+  `attd_mst_id` bigint(20) unsigned NOT NULL COMMENT 'References Attendance_Master(attd_mst_id)',
+  `active` TINYINT(1) NOT NULL DEFAULT '1',
+  `last_updated_on` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Last updated on',
+  `last_updated_by` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs NULL DEFAULT NULL COMMENT 'Last updated by'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Lectures Conducted' AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `Offers_Master`;
