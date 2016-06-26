@@ -113,7 +113,10 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
                     if ($tmp_res) {
                         foreach($tmp_res as $s)
                         {	if(isset($attendance[$s['stud_id']]))
-                            {	$attendance[$s['stud_id']]['attendance'][$sub_attd['sub_code']] = number_format(floatval($s['percentage']), 2, '.', '');
+                            {
+                                $attendance[$s['stud_id']]['attendance'][$sub_attd['sub_code']]['presence'] = intval($s['presence']);
+                                $attendance[$s['stud_id']]['attendance'][$sub_attd['sub_code']]['total'] = intval($s['total']);
+                                $attendance[$s['stud_id']]['attendance'][$sub_attd['sub_code']]['percentage'] = number_format(floatval($s['percentage']), 2, '.', '');
                             }
                             else
                             {	$attendance[$s['stud_id']]=array(
@@ -121,7 +124,11 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
                                     "stud_rollno" => $s['stud_rollno'],
                                     "stud_enrolmentno" => $s['stud_enrolmentno'],
                                     "attendance" => array(
-                                        $sub_attd['sub_code'] => number_format(floatval($s['percentage']), 2, '.', '')
+                                        $sub_attd['sub_code'] => array(
+                                            "presence" => intval($s['presence']),
+                                            "total" => intval($s['total']),
+                                            "percentage" => number_format(floatval($s['percentage']), 2, '.', ''),
+                                        ),
                                     )
                                 );
                             }
@@ -139,15 +146,17 @@ function generateReportData(&$response,$o_id,$sem,$ac_id,$div,array $sub_id=arra
 				{	$flag=false;
 					if(strcmp($sub_filter,"any")==0)
 					{	foreach($stud['attendance'] as $attd)
-						{	if( (strcmp($ltgt,"<=")==0 && $attd <= $percentage)||
-								(strcmp($ltgt,">=")==0 && $attd >= $percentage))
+						{	if( (strcmp($ltgt,"<=")==0 && $attd['percentage'] <= $percentage)||
+								(strcmp($ltgt,">=")==0 && $attd['percentage'] >= $percentage))
 							{	$flag = true;
 								break;
 							}
 						}
 					}
 					else if(strcmp($sub_filter,"avg")==0)
-					{	$sum = array_sum($stud['attendance']);
+					{	$sum = array_sum(array_map(function($item) {
+                            return $item['percentage'];
+                        }, $stud['attendance']));
 						$cnt = count($stud['attendance']);
 						$avg = $sum/$cnt;
 						//echo $avg." ";
@@ -225,6 +234,7 @@ function generateHTMLReport(&$response,$title,$o_id,$sem,$ac_id,$div,array $sub_
 			$cols_arr=array();
 			$now = (new DateTime)->format("d/m/Y");
             $lec_label = "";
+            $lectures_count = getLecturesCount($data);
 			if(intval($lec_type)==2)
 				$lec_label="Lecture & Lab ";
 			else if(intval($lec_type==1))
@@ -265,7 +275,7 @@ EOF;
 			<th style="font-weight:bold">Enrolment No.</th>
 EOF;
 			foreach($first['attendance'] as $col=>$attd)
-			{	$html.='<th style="font-weight:bold">'.$col."</th>";
+			{	$html.='<th style="font-weight:bold">'.$col." ({$lectures_count[$col]})</th>";
 				$cols_arr[]=$col;
 			}
 $html.=<<<EOF
@@ -285,7 +295,7 @@ EOF;
 				{	$html.='<td>';
 					$con="-";
 					if(isset($stud['attendance'][$col]))
-						$con = $stud['attendance'][$col]."%";
+						$con = $stud['attendance'][$col]['percentage']."%";
 					$html.=$con."</td>";
 				}
 				$html.="</tr>";
@@ -391,7 +401,7 @@ EOF;
 				{	
 					$con="-";
 					if(isset($stud['attendance'][$col]))
-						$con = "\"".$stud['attendance'][$col]."\"";
+						$con = "\"".$stud['attendance'][$col]['percentage']."\"";
 					$html.=$con.",";
 				}
 			}
@@ -472,5 +482,17 @@ function generatePDFReport(&$response,$title,$o_id,$sem,$ac_id,$div,array $sub_i
 	}
 	$response = $data;
 	return false;
+}
+
+function getLecturesCount($attendance) {
+    $lectures = array();
+    foreach($attendance as $stud) {
+        foreach($stud['attendance'] as $sub_code=>$sub_attd) {
+            if(!isset($lectures[$sub_code]) || $sub_attd['total'] > $lectures[$sub_code]) {
+                $lectures[$sub_code] = $sub_attd['total'];
+            }
+        }
+    }
+    return $lectures;
 }
 ?>
