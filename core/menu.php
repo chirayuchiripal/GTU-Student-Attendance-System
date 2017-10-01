@@ -25,7 +25,7 @@ EOM;
 				foreach($menu_sub_items as $ind => $msi)
 				{	$opt_access=intval($ram[$ind]);
 					if($opt_access && isset($menu_sub_items_label[$ind]))
-					{	$masters.= "\n\t\t\t\t<li><a href=\"".APP_NAME."dashboard/?act=".$msi."&master=".$mv."\">".$menu_sub_items_label[$ind];
+					{	$masters.= "\n\t\t\t\t<li><a href=\"".APP_NAME."/dashboard/?act=".$msi."&master=".$mv."\">".$menu_sub_items_label[$ind];
 						if($ind==0 && $m)
 							$masters.=" & Update";
 						else
@@ -46,7 +46,7 @@ $masters.=<<<EOM
 </ul>
 EOM;
 	$cur_dir=basename(dirname($_SERVER['PHP_SELF']));
-	$nav_active_url['account']=APP_NAME."dashboard/account/";
+	$nav_active_url['account']=APP_NAME."/dashboard/account/";
 	$nav_active_class['account']="";
 	if(strcmp($cur_dir,"account")==0)
 		$nav_active_class['account']="active";
