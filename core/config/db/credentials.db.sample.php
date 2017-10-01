@@ -8,6 +8,6 @@ return array(
 'database'	=> 'salam',
 'username'	=> 'salam',
 'password'	=> 'salam',
-'hostname'	=> '127.0.0.1',
+'hostname'	=> 'localhost', // OR '127.0.0.1', // Ensure that your MySQL user has access from this host
 );
 ?>
