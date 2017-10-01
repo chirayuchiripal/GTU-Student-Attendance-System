@@ -1,4 +1,5 @@
 <?php
+ob_start();
 if(!isset($title) || !isset($dir)) {
 	die("Request Failed!!");
 }
