@@ -11,7 +11,7 @@ abstract class MyHttpRequest extends HTTP_Status
 	}
 	public static function getJSONTableData(&$response,$queryString="",array $postParam=array(),array $additionalHeaders=array())
 	{
-		$view_url="http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}".APP_NAME."core/modules/view/get/";
+		$view_url="http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}".APP_NAME."/core/modules/view/get/";
 		$headers=self::initHeaders($additionalHeaders);
         $httpResponse = ClientStatic::post($view_url.$queryString,$postParam,$headers);
         if (empty($httpResponse) || is_bool($httpResponse)) {
@@ -28,7 +28,7 @@ abstract class MyHttpRequest extends HTTP_Status
 	}
 	public static function postTableData(&$response,$queryString="",array $postParam=array(),array $additionalHeaders=array())
 	{
-		$add_url="http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}".APP_NAME."core/modules/add/post/";
+		$add_url="http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}".APP_NAME."/core/modules/add/post/";
 		$headers=self::initHeaders($additionalHeaders);
 		$response=json_decode(ClientStatic::post($add_url.$queryString,$postParam,$headers)->getContent(),true);
 		if(isset($response['status']) && $response['status']==self::DUPLICATE)
@@ -60,7 +60,7 @@ abstract class MyHttpRequest extends HTTP_Status
     // @deprecated
 	public static function getStudentsByMst(&$response,array $getParam=array(),array $additionalHeaders=array())
 	{
-		$view_url="http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}".APP_NAME."core/modules/attendance/getStudents/";
+		$view_url="http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}".APP_NAME."/core/modules/attendance/getStudents/";
 		$headers=self::initHeaders($additionalHeaders);
 		$response=json_decode(ClientStatic::get($view_url,$getParam,$headers)->getContent(),true);
 		if(isset($response['status']) || !isset($response))
