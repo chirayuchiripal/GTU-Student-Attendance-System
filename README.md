@@ -36,3 +36,4 @@ Demo Server 2 (OpenShift PaaS Server) [Update feature does not work]
   * Password: @dmin.12
 
 [1]: https://github.com/D-storm
+thank you for supporting us
