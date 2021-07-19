@@ -18,7 +18,7 @@ Installation Intstructions
 Original Authors
 ----------------
 
-* Chirayu Chiripal aka [D-storm][1]
+* [Chirayu Chiripal][1]
 * Kunal Ahuja
 
 Demo Server 1
@@ -35,4 +35,4 @@ Demo Server 2 (OpenShift PaaS Server) [Update feature does not work]
   * Username: admin
   * Password: @dmin.12
 
-[1]: https://github.com/D-storm
+[1]: https://github.com/chirayuchiripal
